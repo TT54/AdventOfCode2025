@@ -5,8 +5,15 @@ with open('day1/data1.data') as f:
     
     pos = 50
     zeros = 0
+    zeros2 = 0
     for rot in rotations:
-        pos = (pos + rot) % 100
-        if pos == 0: zeros += 1
+        sign = 1 if rot > 0 else -1
+        for i in range(abs(rot)):
+            pos = (pos + sign) % 100
+            if pos == 0:
+                zeros2 += 1
+        if pos == 0:
+            zeros += 1
     
-    print("Zeros : " + str(zeros))
+    print("Result 1 : " + str(zeros))
+    print("Result 2 : " + str(zeros2))
