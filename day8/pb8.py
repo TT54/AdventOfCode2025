@@ -21,21 +21,21 @@ def connect(i, j, array: np.array, elements_group: dict, groups: dict[int: set])
     if i in elements_group.keys() and j in elements_group.keys():
         if elements_group[i] == elements_group[j]: return
         old_value = elements_group[j]
-        groups[elements_group[i]] = groups[elements_group[i]].union(groups[old_value])
+        groups[elements_group[i]] = groups[elements_group[i]]  + groups[old_value]
         for key in groups[old_value]:
             if elements_group[key] == old_value: 
                 elements_group[key] = elements_group[i]
         groups.pop(old_value)
     elif i in elements_group.keys():
         elements_group[j] = elements_group[i]
-        groups[elements_group[i]].add(j)
+        groups[elements_group[i]].append(j)
     elif j in elements_group.keys():
         elements_group[i] = elements_group[j]
-        groups[elements_group[j]].add(i)
+        groups[elements_group[j]].append(i)
     else:
         elements_group[i] = len(elements_group)
         elements_group[j] = elements_group[i]
-        groups[elements_group[i]] = set([i, j])
+        groups[elements_group[i]] = [i, j]
 
 with open('day8/data1.data') as f:
     begin = time.time()
